@@ -156,8 +156,18 @@ public class ProjectImpl implements Project {
     }
 
     @Override
-    public Participant removeParticipant(String string) {
-      
+    public Participant removeParticipant(String email) {
+      Participant removedParticipant = null;
+      for(int i = 0; i < this.participantCounter;i ++){
+          if(this.participantList[i].getEmail().equals(email)){
+              removedParticipant = this.participantList[i];
+              for(int j = i;j < this.participantCounter-1;j++){
+                  this.participantList[j] = this.participantList[j+1];
+              }
+              break;
+          }
+      }
+      return removedParticipant;
     }
 
     @Override
