@@ -22,8 +22,12 @@ import participants.StudentImpl;
 
 public class ProjectImpl implements Project {
 
-    private static final int MAX_PARTICIPANTS = 20;
-    private static final int MAX_TASK = 10;
+    private final int maxParticipants;
+    private final int maxStudents;
+    private final int maxPartners;
+    private final int maxFacilitators;
+    private final int maxTasks;
+
     private String name;
     private String description;
     private Participant[] participantList;
@@ -31,12 +35,17 @@ public class ProjectImpl implements Project {
     private int participantCounter;
     private int taskCounter;
 
-    public ProjectImpl(String name, String description) {
+    public ProjectImpl(String name, String description, int maxTasks , int maxPartners, int maxStudents, int maxFacilitators) {
+        this.maxFacilitators = maxFacilitators;
+        this.maxPartners = maxPartners;
+        this.maxStudents = maxStudents;
+        this.maxParticipants = maxFacilitators + maxPartners + maxStudents;
+        this.maxTasks = maxTasks;
         this.name = name;
         this.description = description;
-        this.participantList = new Participant[MAX_PARTICIPANTS];
+        this.participantList = new Participant[this.maxParticipants];
         this.participantCounter = 0;
-        this.taskList = new Task[MAX_TASK];
+        this.taskList = new Task[this.maxTasks];
         this.taskCounter = 0;
     }
 
@@ -90,37 +99,44 @@ public class ProjectImpl implements Project {
 
     @Override
     public int getNumberOfTasks() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.taskCounter;
     }
 
     @Override
     public int getMaximumNumberOfTasks() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.maxTasks;
     }
 
     @Override
     public long getMaximumNumberOfParticipants() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.maxParticipants;
     }
 
     @Override
     public int getMaximumNumberOfStudents() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.maxStudents;
     }
 
     @Override
     public int getMaximumNumberOfPartners() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.maxPartners;
     }
 
     @Override
     public int getMaximumNumberOfFacilitators() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.maxFacilitators;
     }
 
     @Override
     public void addParticipant(Participant p) throws IllegalNumberOfParticipantType, ParticipantAlreadyInProject {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (p == null) {
+            throw new IllegalArgumentException("The given argument is null.");
+        }
+        if (p instanceof StudentImpl){
+            if(){
+                
+            }
+        }
     }
 
     @Override
