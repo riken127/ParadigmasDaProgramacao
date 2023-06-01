@@ -86,7 +86,7 @@ public class ProjectImpl implements Project {
         int partnersCounter = 0;
         for (int i = 0; i < this.participantCounter; i++) {
             if (participantList[i] != null) {
-                if (participantList[i] instanceof  PartnerImpl) {
+                if (participantList[i] instanceof PartnerImpl) {
                     partnersCounter++;
                 }
             }
@@ -135,18 +135,6 @@ public class ProjectImpl implements Project {
     @Override
     public int getMaximumNumberOfFacilitators() {
         return this.MAX_FACILITATORS;
-    }
-
-    public void addTag(String tag) throws ParticipantAlreadyInProject {
-        if (tag == null) {
-            throw new IllegalArgumentException("The given argument is null.");
-        }
-        for (String tags : this.tagList) {
-            if (tags.equals(tag)) {
-                throw new ParticipantAlreadyInProject("The tag is already in the project");
-            }
-        }
-        this.tagList[this.tagCounter++] = tag;
     }
 
     @Override
@@ -202,14 +190,31 @@ public class ProjectImpl implements Project {
         return null;
     }
 
-    @Override
-    public String[] getTags() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addTag(String tag) throws ParticipantAlreadyInProject {
+        if (tag == null) {
+            throw new IllegalArgumentException("The given argument is null.");
+        }
+        for (String tags : this.tagList) {
+            if (tags.equals(tag)) {
+                throw new ParticipantAlreadyInProject("The tag is already in the project");
+            }
+        }
+        this.tagList[this.tagCounter++] = tag;
     }
 
     @Override
-    public boolean hasTag(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String[] getTags() {
+        return this.tagList;
+    }
+
+    @Override
+    public boolean hasTag(String tag) {
+        for (String tags : this.tagList) {
+            if (tags.equals(tag)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
