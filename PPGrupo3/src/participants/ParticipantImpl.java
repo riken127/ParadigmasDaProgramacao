@@ -17,7 +17,7 @@ public class ParticipantImpl implements Participant{
 
     private String name;
     private String email;
-    private Instituition institution;
+    private InstituitionImpl institution;
     private Contact contact;
 
     public ParticipantImpl(String name, String email, InstituitionImpl institution, Contact contact) {
@@ -54,7 +54,7 @@ public class ParticipantImpl implements Participant{
 
     @Override
     public void setInstituition(Instituition instn) {
-        this.institution =  instn;
+        this.institution = (InstituitionImpl) instn;
     }
 
     @Override
