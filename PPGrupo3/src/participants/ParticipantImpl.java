@@ -43,7 +43,7 @@ public class ParticipantImpl implements Participant{
     }
 
     @Override
-    public InstituitionImpl getInstituition() {
+    public Instituition getInstituition() {
         return this.institution;
     }
 
@@ -54,7 +54,25 @@ public class ParticipantImpl implements Participant{
 
     @Override
     public void setInstituition(Instituition instn) {
-        this.institution = (InstituitionImpl) instn; // ??
+        this.institution = (InstituitionImpl) instn;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Participant)) {
+            return false;
+        }
+        ParticipantImpl temporaryParticipant = (ParticipantImpl) obj;
+        if (temporaryParticipant == this) {
+            return true;
+        }
+
+        return (temporaryParticipant.getInstituition().equals(this.getInstituition()) &&
+                temporaryParticipant.getContact().equals(this.getContact()) &&
+                temporaryParticipant.getEmail().equals(this.getEmail()) &&
+                temporaryParticipant.getName().equals(this.getName()));
+    }
 }

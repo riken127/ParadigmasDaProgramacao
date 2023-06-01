@@ -79,5 +79,23 @@ public class InstituitionImpl implements Instituition{
     public void setType(InstituitionType it) {
         this.type = it;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)  {
+            return false;
+        }
+        if (!(obj instanceof InstituitionImpl)) {
+            return false;
+        }
+        InstituitionImpl temporaryInstituition = (InstituitionImpl) obj;
+        if (temporaryInstituition != this) {
+            return false;
+        }
+        return (temporaryInstituition.getName().equals(this.getName()) &&
+                temporaryInstituition.getType() == this.getType() &&
+                temporaryInstituition.getWebsite().equals(this.getWebsite()) &&
+                temporaryInstituition.getDescription().equals(this.getDescription()) &&
+                temporaryInstituition.getEmail().equals(this.getEmail()));
+    }
 }

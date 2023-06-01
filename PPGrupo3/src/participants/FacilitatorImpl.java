@@ -46,7 +46,7 @@ public class FacilitatorImpl extends ParticipantImpl implements Facilitator {
     }
 
     @Override
-    public InstituitionImpl getInstituition() {
+    public Instituition getInstituition() {
         return super.getInstituition();
     }
 
