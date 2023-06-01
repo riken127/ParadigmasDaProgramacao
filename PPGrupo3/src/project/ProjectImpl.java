@@ -218,22 +218,39 @@ public class ProjectImpl implements Project {
 
     @Override
     public void addTask(Task task) throws IllegalNumberOfTasks, TaskAlreadyInProject {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (this.taskCounter == this.MAX_TASKS) {
+            throw new IllegalNumberOfTasks("The max number of tasks was achieved.");
+        }
+        if (getTask(task.getTitle()) != null) {
+            throw new TaskAlreadyInProject("The given task is already already ");
+        }
+
+        this.taskList[this.taskCounter++] = task;
     }
 
     @Override
     public Task getTask(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i = 0; i < this.taskCounter; i++) {
+            if (taskList[i].getTitle().equals(string)) {
+                return taskList[i];
+            }
+        }
+        return null;
     }
 
     @Override
     public Task[] getTasks() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.taskList;
     }
 
     @Override
     public boolean isCompleted() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i = 0; i < this.taskCounter; i++) {
+            if (taskList[i].getNumberOfSubmissions() == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
