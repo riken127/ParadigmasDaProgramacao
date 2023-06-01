@@ -4,7 +4,7 @@
  */
 package classes;
 
-import cbl.participants.Contact;
+import ma02_resources.participants.Contact;
 
 /**
  *
