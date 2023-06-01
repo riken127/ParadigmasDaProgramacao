@@ -6,7 +6,7 @@
 * Nome: <José Henrique Noronha Oliveira e Silva>
 * Número: <8220343>
 * Turma: <LEI1T4>
-*/
+ */
 package project;
 
 import ma02_resources.participants.Participant;
@@ -16,13 +16,24 @@ import ma02_resources.project.exceptions.IllegalNumberOfParticipantType;
 import ma02_resources.project.exceptions.IllegalNumberOfTasks;
 import ma02_resources.project.exceptions.ParticipantAlreadyInProject;
 import ma02_resources.project.exceptions.TaskAlreadyInProject;
+import participants.FacilitatorImpl;
+import participants.PartnerImpl;
+import participants.StudentImpl;
 
 public class ProjectImpl implements Project {
 
+    private static final int MAX_PARTICIPANTS = 20;
     private String name;
     private String description;
     private Participant[] participantList;
     private int participantCounter;
+
+    public ProjectImpl(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.participantList = new Participant[MAX_PARTICIPANTS];
+        this.participantCounter = 0;
+    }
 
     @Override
     public String getName() {
@@ -41,17 +52,35 @@ public class ProjectImpl implements Project {
 
     @Override
     public int getNumberOfStudents() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int studentCounter = 0;
+        for (Participant participant : this.participantList) {
+            if (participant instanceof StudentImpl) {
+                studentCounter++;
+            }
+        }
+        return studentCounter;
     }
 
     @Override
     public int getNumberOfPartners() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int partnersCounter = 0;
+        for (Participant participant : this.participantList) {
+            if (participant instanceof PartnerImpl) {
+                partnersCounter++;
+            }
+        }
+        return partnersCounter;
     }
 
     @Override
     public int getNumberOfFacilitators() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int facilitatorsCounter = 0;
+        for (Participant participant : this.participantList) {
+            if (participant instanceof FacilitatorImpl) {
+                facilitatorsCounter++;
+            }
+        }
+        return facilitatorsCounter;
     }
 
     @Override
