@@ -133,9 +133,7 @@ public class ProjectImpl implements Project {
             throw new IllegalArgumentException("The given argument is null.");
         }
         if (p instanceof StudentImpl){
-            if(){
-                
-            }
+       
         }
     }
 
