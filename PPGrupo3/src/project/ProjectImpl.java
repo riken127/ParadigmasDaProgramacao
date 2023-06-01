@@ -194,11 +194,10 @@ public class ProjectImpl implements Project {
         if (tag == null) {
             throw new IllegalArgumentException("The given argument is null.");
         }
-        for (String tags : this.tagList) {
-            if (tags.equals(tag)) {
-                throw new ParticipantAlreadyInProject("The tag is already in the project");
-            }
+        if (this.hasTag(tag) == true) {
+            throw new ParticipantAlreadyInProject("The tag is already in the project");
         }
+
         this.tagList[this.tagCounter++] = tag;
     }
 
