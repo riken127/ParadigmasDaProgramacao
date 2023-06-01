@@ -133,6 +133,18 @@ public class ProjectImpl implements Project {
         return this.MAX_FACILITATORS;
     }
 
+    public void addTag(String tag) throws ParticipantAlreadyInProject {
+        if (tag == null) {
+            throw new IllegalArgumentException("The given argument is null.");
+        }
+        for (String tags : this.tagList) {
+            if (tags.equals(tag)) {
+                throw new ParticipantAlreadyInProject("The tag is already in the project");
+            }
+        }
+        this.tagList[this.tagCounter++] = tag;
+    }
+
     @Override
     public void addParticipant(Participant participant) throws IllegalNumberOfParticipantType, ParticipantAlreadyInProject {
         if (participant == null) {
