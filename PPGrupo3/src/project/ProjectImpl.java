@@ -32,6 +32,8 @@ public class ProjectImpl implements Project {
     private String description;
     private Participant[] participantList;
     private Task[] taskList;
+    private String[] tags;
+    private String tagCounter;
     private int participantCounter;
     private int taskCounter;
     private String[] tagList;
@@ -175,7 +177,12 @@ public class ProjectImpl implements Project {
 
     @Override
     public Participant getParticipant(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i = 0; i < this.participantCounter; i++) {
+            if (this.participantList[i].getEmail().equals(string)) {
+                return participantList[i];
+            }
+        }
+        return null;
     }
 
     @Override
