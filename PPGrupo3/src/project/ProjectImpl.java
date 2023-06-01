@@ -32,6 +32,8 @@ public class ProjectImpl implements Project {
     private String description;
     private Participant[] participantList;
     private Task[] taskList;
+    private String[] tags;
+    private String tagCounter;
     private int participantCounter;
     private int taskCounter;
 
