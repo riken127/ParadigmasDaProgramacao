@@ -34,8 +34,9 @@ public class ProjectImpl implements Project {
     private Task[] taskList;
     private int participantCounter;
     private int taskCounter;
+    private String[] tagList;
 
-    public ProjectImpl(String name, String description, int maxTasks, int maxPartners, int maxStudents, int maxFacilitators) {
+    public ProjectImpl(String name, String description, int maxTasks, int maxPartners, int maxStudents, int maxFacilitators, String[] tags) {
         this.maxFacilitators = maxFacilitators;
         this.maxPartners = maxPartners;
         this.maxStudents = maxStudents;
@@ -47,6 +48,8 @@ public class ProjectImpl implements Project {
         this.participantCounter = 0;
         this.taskList = new Task[this.maxTasks];
         this.taskCounter = 0;
+        //this.tagList[] = tags[];
+        
     }
 
     @Override
