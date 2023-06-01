@@ -84,9 +84,11 @@ public class ProjectImpl implements Project {
     @Override
     public int getNumberOfPartners() {
         int partnersCounter = 0;
-        for (Participant participant : this.participantList) {
-            if (participant instanceof PartnerImpl) {
-                partnersCounter++;
+        for (int i = 0; i < this.participantCounter; i++) {
+            if (participantList[i] != null) {
+                if (participantList[i] instanceof  PartnerImpl) {
+                    partnersCounter++;
+                }
             }
         }
         return partnersCounter;
@@ -95,9 +97,11 @@ public class ProjectImpl implements Project {
     @Override
     public int getNumberOfFacilitators() {
         int facilitatorsCounter = 0;
-        for (Participant participant : this.participantList) {
-            if (participant instanceof FacilitatorImpl) {
-                facilitatorsCounter++;
+        for (int i = 0; i < this.participantCounter; i++) {
+            if (participantList[i] != null) {
+                if (participantList[i] instanceof FacilitatorImpl) {
+                    facilitatorsCounter++;
+                }
             }
         }
         return facilitatorsCounter;
