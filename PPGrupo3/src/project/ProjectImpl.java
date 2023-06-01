@@ -152,12 +152,12 @@ public class ProjectImpl implements Project {
                 throw new ParticipantAlreadyInProject("The participant is already in the project");
             }
         }
-
+        this.participantList[this.participantCounter++] = participant;
     }
 
     @Override
     public Participant removeParticipant(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      
     }
 
     @Override
