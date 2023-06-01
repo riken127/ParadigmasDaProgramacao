@@ -22,36 +22,37 @@ import participants.StudentImpl;
 
 public class ProjectImpl implements Project {
 
-    private final int maxParticipants;
-    private final int maxStudents;
-    private final int maxPartners;
-    private final int maxFacilitators;
-    private final int maxTasks;
+    private final int MAX_PARTICIPANTS;
+    private final int MAX_STUDENTS;
+    private final int MAX_PARTNERS;
+    private final int MAX_FACILITATORS;
+    private final int MAX_TASKS;
+    private final int MAX_TAGS;
 
     private String name;
     private String description;
     private Participant[] participantList;
     private Task[] taskList;
-    private String[] tags;
-    private String tagCounter;
+    private String[] tagList;
+    private int tagCounter;
     private int participantCounter;
     private int taskCounter;
-    private String[] tagList;
 
-    public ProjectImpl(String name, String description, int maxTasks, int maxPartners, int maxStudents, int maxFacilitators, String[] tags) {
-        this.maxFacilitators = maxFacilitators;
-        this.maxPartners = maxPartners;
-        this.maxStudents = maxStudents;
-        this.maxParticipants = maxFacilitators + maxPartners + maxStudents;
-        this.maxTasks = maxTasks;
+    public ProjectImpl(String name, String description, int maxTasks, int maxPartners, int maxStudents, int maxFacilitators, int maxTags) {
+        this.MAX_FACILITATORS = maxFacilitators;
+        this.MAX_PARTNERS = maxPartners;
+        this.MAX_STUDENTS = maxStudents;
+        this.MAX_PARTICIPANTS = maxFacilitators + maxPartners + maxStudents;
+        this.MAX_TASKS = maxTasks;
+        this.MAX_TAGS = maxTags;
         this.name = name;
         this.description = description;
-        this.participantList = new Participant[this.maxParticipants];
+        this.participantList = new Participant[this.MAX_PARTICIPANTS];
         this.participantCounter = 0;
-        this.taskList = new Task[this.maxTasks];
+        this.taskList = new Task[this.MAX_TASKS];
         this.taskCounter = 0;
-        //this.tagList[] = tags[];
-        
+        this.tagList = new String[this.MAX_TAGS];
+        this.tagCounter = 0;
     }
 
     @Override
@@ -109,27 +110,27 @@ public class ProjectImpl implements Project {
 
     @Override
     public int getMaximumNumberOfTasks() {
-        return this.maxTasks;
+        return this.MAX_TASKS;
     }
 
     @Override
     public long getMaximumNumberOfParticipants() {
-        return this.maxParticipants;
+        return this.MAX_PARTICIPANTS;
     }
 
     @Override
     public int getMaximumNumberOfStudents() {
-        return this.maxStudents;
+        return this.MAX_STUDENTS;
     }
 
     @Override
     public int getMaximumNumberOfPartners() {
-        return this.maxPartners;
+        return this.MAX_PARTNERS;
     }
 
     @Override
     public int getMaximumNumberOfFacilitators() {
-        return this.maxFacilitators;
+        return this.MAX_FACILITATORS;
     }
 
     @Override
@@ -138,17 +139,17 @@ public class ProjectImpl implements Project {
             throw new IllegalArgumentException("The given argument is null.");
         }
         if (participant instanceof StudentImpl) {
-            if (this.getNumberOfStudents() == this.maxStudents) {
+            if (this.getNumberOfStudents() == this.MAX_STUDENTS) {
                 throw new IllegalNumberOfParticipantType("The max number of students was achieved");
             }
         }
         if (participant instanceof PartnerImpl) {
-            if (this.getNumberOfPartners() == this.maxPartners) {
+            if (this.getNumberOfPartners() == this.MAX_PARTNERS) {
                 throw new IllegalNumberOfParticipantType("The max number of partners was achieved");
             }
         }
         if (participant instanceof FacilitatorImpl) {
-            if (this.getNumberOfFacilitators() == this.maxFacilitators) {
+            if (this.getNumberOfFacilitators() == this.MAX_FACILITATORS) {
                 throw new IllegalNumberOfParticipantType("The max number of facilitators was achieved");
             }
         }
@@ -162,17 +163,17 @@ public class ProjectImpl implements Project {
 
     @Override
     public Participant removeParticipant(String email) {
-      Participant removedParticipant = null;
-      for(int i = 0; i < this.participantCounter;i ++){
-          if(this.participantList[i].getEmail().equals(email)){
-              removedParticipant = this.participantList[i];
-              for(int j = i;j < this.participantCounter-1;j++){
-                  this.participantList[j] = this.participantList[j+1];
-              }
-              break;
-          }
-      }
-      return removedParticipant;
+        Participant removedParticipant = null;
+        for (int i = 0; i < this.participantCounter; i++) {
+            if (this.participantList[i].getEmail().equals(email)) {
+                removedParticipant = this.participantList[i];
+                for (int j = i; j < this.participantCounter - 1; j++) {
+                    this.participantList[j] = this.participantList[j + 1];
+                }
+                break;
+            }
+        }
+        return removedParticipant;
     }
 
     @Override
