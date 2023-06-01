@@ -33,7 +33,7 @@ public class ProjectImpl implements Project {
     private Participant[] participantList;
     private Task[] taskList;
     private String[] tags;
-    private String tagCounter;
+    private int tagCounter;
     private int participantCounter;
     private int taskCounter;
     private String[] tagList;
@@ -83,9 +83,11 @@ public class ProjectImpl implements Project {
     @Override
     public int getNumberOfPartners() {
         int partnersCounter = 0;
-        for (Participant participant : this.participantList) {
-            if (participant instanceof PartnerImpl) {
-                partnersCounter++;
+        for (int i = 0; i < this.participantCounter; i++) {
+            if (participantList[i] != null) {
+                if (participantList[i] instanceof  PartnerImpl) {
+                    partnersCounter++;
+                }
             }
         }
         return partnersCounter;
@@ -94,9 +96,11 @@ public class ProjectImpl implements Project {
     @Override
     public int getNumberOfFacilitators() {
         int facilitatorsCounter = 0;
-        for (Participant participant : this.participantList) {
-            if (participant instanceof FacilitatorImpl) {
-                facilitatorsCounter++;
+        for (int i = 0; i < this.participantCounter; i++) {
+            if (participantList[i] != null) {
+                if (participantList[i] instanceof FacilitatorImpl) {
+                    facilitatorsCounter++;
+                }
             }
         }
         return facilitatorsCounter;
