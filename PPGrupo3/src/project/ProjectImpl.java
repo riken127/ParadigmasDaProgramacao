@@ -23,16 +23,21 @@ import participants.StudentImpl;
 public class ProjectImpl implements Project {
 
     private static final int MAX_PARTICIPANTS = 20;
+    private static final int MAX_TASK = 10;
     private String name;
     private String description;
     private Participant[] participantList;
+    private Task[] taskList;
     private int participantCounter;
+    private int taskCounter;
 
     public ProjectImpl(String name, String description) {
         this.name = name;
         this.description = description;
         this.participantList = new Participant[MAX_PARTICIPANTS];
         this.participantCounter = 0;
+        this.taskList = new Task[MAX_TASK];
+        this.taskCounter = 0;
     }
 
     @Override
