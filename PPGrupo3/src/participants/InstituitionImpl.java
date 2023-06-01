@@ -1,16 +1,18 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: <João Pedro Salgado Pereira>
+* Número: <8220102>
+* Turma: <LEI1T4>
+*
+* Nome: <José Henrique Noronha Oliveira e Silva>
+* Número: <8220343>
+* Turma: <LEI1T4>
+*/
 package participants;
 
 import ma02_resources.participants.Instituition;
 import ma02_resources.participants.Contact;
 import ma02_resources.participants.InstituitionType;
-/**
- *
- * @author noronha
- */
+
 public class InstituitionImpl implements Instituition{
     private String name;
     private String email;

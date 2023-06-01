@@ -1,18 +1,20 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: <João Pedro Salgado Pereira>
+* Número: <8220102>
+* Turma: <LEI1T4>
+*
+* Nome: <José Henrique Noronha Oliveira e Silva>
+* Número: <8220343>
+* Turma: <LEI1T4>
+*/
 package project;
 
 import java.time.LocalDate;
 import ma02_resources.project.Submission;
 import ma02_resources.project.Task;
 
-/**
- *
- * @author noronha
- */
 public class TaskImpl implements Task {
+
     private static final int INITIAL_SUBMISSION_SIZE = 20;
     private LocalDate start;
     private LocalDate end;
@@ -21,6 +23,7 @@ public class TaskImpl implements Task {
     private String description;
     private Submission[] submissions;
     private int submissionCounter;
+
     public TaskImpl(LocalDate start, LocalDate end, int duration, String title, String description) {
         this.start = start;
         this.end = end;
@@ -30,7 +33,7 @@ public class TaskImpl implements Task {
         this.submissions = new Submission[INITIAL_SUBMISSION_SIZE];
         this.submissionCounter = 0;
     }
-    
+
     @Override
     public LocalDate getStart() {
         return start;
@@ -81,7 +84,7 @@ public class TaskImpl implements Task {
                 this.submissions[i] = temporarySubmissionsArray[i];
             }
             this.submissions[this.submissionCounter++] = sbmsn;
-        }else {
+        } else {
             this.submissions[this.submissionCounter++] = sbmsn;
         }
     }
@@ -95,5 +98,5 @@ public class TaskImpl implements Task {
     public int compareTo(Task task) {
         return (this.getStart().compareTo(task.getStart()));
     }
-    
+
 }

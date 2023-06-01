@@ -1,7 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: <João Pedro Salgado Pereira>
+* Número: <8220102>
+* Turma: <LEI1T4>
+*
+* Nome: <José Henrique Noronha Oliveira e Silva>
+* Número: <8220343>
+* Turma: <LEI1T4>
+*/
 package project;
 
 import ma02_resources.participants.Participant;
@@ -12,16 +17,13 @@ import ma02_resources.project.exceptions.IllegalNumberOfTasks;
 import ma02_resources.project.exceptions.ParticipantAlreadyInProject;
 import ma02_resources.project.exceptions.TaskAlreadyInProject;
 
-/**
- *
- * @author noronha
- */
 public class ProjectImpl implements Project {
+
     private String name;
     private String description;
     private Participant[] participantList;
     private int participantCounter;
-    
+
     @Override
     public String getName() {
         return this.name;
@@ -126,5 +128,5 @@ public class ProjectImpl implements Project {
     public boolean isCompleted() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

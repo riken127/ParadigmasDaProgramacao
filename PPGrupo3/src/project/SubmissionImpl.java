@@ -1,17 +1,18 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: <João Pedro Salgado Pereira>
+* Número: <8220102>
+* Turma: <LEI1T4>
+*
+* Nome: <José Henrique Noronha Oliveira e Silva>
+* Número: <8220343>
+* Turma: <LEI1T4>
+*/
 package project;
 
 import java.time.LocalDateTime;
 import ma02_resources.participants.Student;
 import ma02_resources.project.Submission;
 
-/**
- *
- * @author noronha
- */
 public class SubmissionImpl implements Submission {
 
     private LocalDateTime date;
@@ -23,7 +24,7 @@ public class SubmissionImpl implements Submission {
         this.student = student;
         this.text = text;
     }
-    
+
     @Override
     public LocalDateTime getDate() {
         return date;
@@ -43,5 +44,5 @@ public class SubmissionImpl implements Submission {
     public int compareTo(Submission sbmsn) {
         return this.getDate().compareTo(sbmsn.getDate());
     }
-    
+
 }

@@ -1,7 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Nome: <João Pedro Salgado Pereira>
+* Número: <8220102>
+* Turma: <LEI1T4>
+*
+* Nome: <José Henrique Noronha Oliveira e Silva>
+* Número: <8220343>
+* Turma: <LEI1T4>
+*/
 package project;
 
 import java.io.IOException;
@@ -11,17 +16,15 @@ import ma02_resources.project.Edition;
 import ma02_resources.project.Project;
 import ma02_resources.project.Status;
 
-/**
- *
- * @author noronha
- */
-public class EditionImpl implements Edition{
+public class EditionImpl implements Edition {
+
     private String name;
     private LocalDate start;
     private LocalDate end;
     private String projectTemplate;
     private Status status;
     private Project[] projectList;
+
     @Override
     public String getName() {
         return this.name;
@@ -86,5 +89,5 @@ public class EditionImpl implements Edition{
     public LocalDate getEnd() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

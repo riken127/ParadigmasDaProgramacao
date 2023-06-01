@@ -1,17 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Nome: <João Pedro Salgado Pereira>
+* Número: <8220102>
+* Turma: <LEI1T4>
+*
+* Nome: <José Henrique Noronha Oliveira e Silva>
+* Número: <8220343>
+* Turma: <LEI1T4>
+*/
 package participants;
 import ma02_resources.participants.Contact;
 import ma02_resources.participants.Facilitator;
 import ma02_resources.participants.Instituition;
-
-/**
- *
- * @author User
- */
 
 public class FacilitatorImpl extends ParticipantImpl implements Facilitator {
 
