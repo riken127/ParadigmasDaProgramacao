@@ -128,27 +128,27 @@ public class ProjectImpl implements Project {
     }
 
     @Override
-    public void addParticipant(Participant p) throws IllegalNumberOfParticipantType, ParticipantAlreadyInProject {
-        if (p == null) {
+    public void addParticipant(Participant participant) throws IllegalNumberOfParticipantType, ParticipantAlreadyInProject {
+        if (participant == null) {
             throw new IllegalArgumentException("The given argument is null.");
         }
-        if (p instanceof StudentImpl) {
+        if (participant instanceof StudentImpl) {
             if (this.getNumberOfStudents() == this.maxStudents) {
                 throw new IllegalNumberOfParticipantType("The max number of students was achieved");
             }
         }
-        if (p instanceof PartnerImpl) {
+        if (participant instanceof PartnerImpl) {
             if (this.getNumberOfPartners() == this.maxPartners) {
                 throw new IllegalNumberOfParticipantType("The max number of partners was achieved");
             }
         }
-        if (p instanceof FacilitatorImpl) {
+        if (participant instanceof FacilitatorImpl) {
             if (this.getNumberOfFacilitators() == this.maxFacilitators) {
                 throw new IllegalNumberOfParticipantType("The max number of facilitators was achieved");
             }
         }
-        for (Participant participant : this.participantList) {
-            if (participant.equals(p)) {
+        for (Participant participants : this.participantList) {
+            if (participants.equals(participant)) {
                 throw new ParticipantAlreadyInProject("The participant is already in the project");
             }
         }
