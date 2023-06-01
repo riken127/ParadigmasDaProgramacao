@@ -17,13 +17,13 @@ public class ParticipantImpl implements Participant{
 
     private String name;
     private String email;
-    private InstituitionImpl instituition;
+    private InstituitionImpl institution;
     private Contact contact;
 
-    public ParticipantImpl(String name, String email, InstituitionImpl instituition, Contact contact) {
+    public ParticipantImpl(String name, String email, InstituitionImpl institution, Contact contact) {
         this.name = name;
         this.email = email;
-        this.instituition = instituition;
+        this.institution = institution;
         this.contact = contact;
     }
     
@@ -44,7 +44,7 @@ public class ParticipantImpl implements Participant{
 
     @Override
     public InstituitionImpl getInstituition() {
-        return this.instituition;
+        return this.institution;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ParticipantImpl implements Participant{
 
     @Override
     public void setInstituition(Instituition instn) {
-        this.instituition = (InstituitionImpl) instn; // ??
+        this.institution = (InstituitionImpl) instn; // ??
     }
     
 }
