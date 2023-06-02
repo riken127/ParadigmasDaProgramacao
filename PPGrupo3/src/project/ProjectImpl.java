@@ -55,6 +55,21 @@ public class ProjectImpl implements Project {
         this.tagCounter = 0;
     }
 
+    public ProjectImpl(String name, String description, String[] tags) {
+        this.MAX_FACILITATORS = 10;
+        this.MAX_PARTNERS = 5;
+        this.MAX_STUDENTS = 20;
+        this.MAX_PARTICIPANTS = this.MAX_FACILITATORS + this.MAX_PARTNERS + this.MAX_STUDENTS;
+        this.MAX_TASKS = 20;
+        this.MAX_TAGS = 10;
+        this.name = name;
+        this.description = description;
+        this.participantList = null;
+        this.participantCounter = 0;
+        this.taskList = new Task[this.MAX_TASKS];
+        this.taskCounter = 0;
+        this.addTagsToObject(tags);
+    }
     @Override
     public String getName() {
         return this.name;
@@ -194,11 +209,19 @@ public class ProjectImpl implements Project {
         if (tag == null) {
             throw new IllegalArgumentException("The given argument is null.");
         }
-        if (this.hasTag(tag) == true) {
+        if (this.hasTag(tag)) {
             throw new ParticipantAlreadyInProject("The tag is already in the project");
         }
 
         this.tagList[this.tagCounter++] = tag;
+    }
+
+    private void addTagsToObject(String[] string) {
+        this.tagList = new String[string.length];
+        for(int i = 0; i < string.length; i++) {
+            tagList[i] = string[i];
+        }
+        this.tagCounter = string.length;
     }
 
     @Override
@@ -245,12 +268,26 @@ public class ProjectImpl implements Project {
 
     @Override
     public boolean isCompleted() {
-        for (int i = 0; i < this.taskCounter; i++) {
-            if (taskList[i].getNumberOfSubmissions() == 0) {
+        for (int i = 0; i < this.MAX_TASKS; i++) {
+            if (this.taskList[i] == null || this.taskList[i].getNumberOfSubmissions() == 0) {
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ProjectImpl)) {
+            return false;
+        }
+        ProjectImpl temporaryProject = (ProjectImpl) obj;
+
+        return (temporaryProject.getName().equals(this.getName()) &&
+                temporaryProject.getDescription().equals(this.getDescription()));
     }
 
 }
