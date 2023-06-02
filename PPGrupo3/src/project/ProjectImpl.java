@@ -1,11 +1,11 @@
 /*
-* Nome: <João Pedro Salgado Pereira>
-* Número: <8220102>
-* Turma: <LEI1T4>
-*
-* Nome: <José Henrique Noronha Oliveira e Silva>
-* Número: <8220343>
-* Turma: <LEI1T4>
+ * Nome: <João Pedro Salgado Pereira>
+ * Número: <8220102>
+ * Turma: <LEI1T4>
+ *
+ * Nome: <José Henrique Noronha Oliveira e Silva>
+ * Número: <8220343>
+ * Turma: <LEI1T4>
  */
 package project;
 
@@ -29,10 +29,10 @@ public class ProjectImpl implements Project {
     private final int MAX_TASKS;
     private final int MAX_TAGS;
 
-    private String name;
-    private String description;
-    private Participant[] participantList;
-    private Task[] taskList;
+    private final String name;
+    private final String description;
+    private final Participant[] participantList;
+    private final Task[] taskList;
     private String[] tagList;
     private int tagCounter;
     private int participantCounter;
@@ -70,6 +70,7 @@ public class ProjectImpl implements Project {
         this.taskCounter = 0;
         this.addTagsToObject(tags);
     }
+
     @Override
     public String getName() {
         return this.name;
@@ -218,9 +219,7 @@ public class ProjectImpl implements Project {
 
     private void addTagsToObject(String[] string) {
         this.tagList = new String[string.length];
-        for(int i = 0; i < string.length; i++) {
-            tagList[i] = string[i];
-        }
+        System.arraycopy(string, 0, tagList, 0, string.length);
         this.tagCounter = string.length;
     }
 
@@ -281,10 +280,9 @@ public class ProjectImpl implements Project {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof ProjectImpl)) {
+        if (!(obj instanceof ProjectImpl temporaryProject)) {
             return false;
         }
-        ProjectImpl temporaryProject = (ProjectImpl) obj;
 
         return (temporaryProject.getName().equals(this.getName()) &&
                 temporaryProject.getDescription().equals(this.getDescription()));
