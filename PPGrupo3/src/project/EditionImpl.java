@@ -12,9 +12,12 @@ package project;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
+
+import ma02_resources.participants.Participant;
 import ma02_resources.project.Edition;
 import ma02_resources.project.Project;
 import ma02_resources.project.Status;
+import participants.ParticipantImpl;
 
 public class EditionImpl implements Edition {
 
@@ -24,6 +27,15 @@ public class EditionImpl implements Edition {
     private String projectTemplate;
     private Status status;
     private Project[] projectList;
+    private int projectCounter;
+
+    public EditionImpl(String name, LocalDate start, LocalDate end, String projectTemplate, Status status) {
+        this.name = name;
+        this.start = start;
+        this.end = end;
+        this.projectTemplate = projectTemplate;
+        this.status = status;
+    }
 
     @Override
     public String getName() {
@@ -51,43 +63,113 @@ public class EditionImpl implements Edition {
     }
 
     @Override
-    public void addProject(String string, String string1, String[] strings) throws IOException, ParseException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addProject(String name, String description, String[] tags) throws IOException, ParseException {
+        // Não entendo necessidade e ou / como implementar o IOExeption/ParseException
+        if (name == null || name.equals("") || description == null || description.equals("") || tags == null) {
+            throw new IllegalArgumentException("A null item was found in the given template.");
+        }
+        for (String tag : tags) {
+            if (tag.equals("") || tag.equals(" ")) {
+                throw new IllegalArgumentException("A empty tag was found in the given template.");
+            }
+        }
+
+        this.projectList[this.projectCounter++] = new ProjectImpl(name, description, tags);
     }
 
+    private int findProject(String string) {
+        for (int i = 0; i < this.projectCounter; i++) {
+            if (projectList[i] != null) {
+                if (this.projectList[i].getName().equals(string)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
     @Override
     public void removeProject(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int position = findProject(string);
+        if (position == -1) {
+            throw new IllegalArgumentException("The given project name was not found ");
+        }
+        for (int i = position; i < this.projectCounter - 1; i++) {
+            this.projectList[i] = this.projectList[i + 1];
+        }
     }
 
     @Override
     public Project getProject(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int position = findProject(string);
+        if (position == -1) {
+            throw new IllegalArgumentException("The given project name was not found.");
+        }
+        return this.projectList[position];
     }
 
     @Override
     public Project[] getProjects() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.projectList;
     }
+
 
     @Override
     public Project[] getProjectsByTag(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (string == null || string.isEmpty()) {
+            throw new IllegalArgumentException("Tag cannot be null or empty.");
+        }
+        int count = 0;
+        for (Project project : this.projectList) {
+            if (project.hasTag(string)) {
+                count++;
+            }
+        }
+
+        Project[] projectsWithTag = new Project[count];
+        int index = 0;
+        for (Project project : this.projectList) {
+            if (project.hasTag(string)) {
+                projectsWithTag[index++] = project;
+            }
+        }
+
+        return projectsWithTag;
     }
 
     @Override
     public Project[] getProjectsOf(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (string == null || string.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty.");
+        }
+
+        int count = 0;
+        for (Project project : this.projectList) {
+            Participant participant = project.getParticipant(string);
+            if (participant != null) {
+                count++;
+            }
+        }
+
+        Project[] projectsOfParticipant = new Project[count];
+        int index = 0;
+        for (Project project : this.projectList) {
+            Participant participant = project.getParticipant(string);
+            if (participant != null) {
+                projectsOfParticipant[index++] = project;
+            }
+        }
+
+        return projectsOfParticipant;
     }
 
     @Override
     public int getNumberOfProjects() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.projectCounter;
     }
 
     @Override
     public LocalDate getEnd() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.end;
     }
 
 }
