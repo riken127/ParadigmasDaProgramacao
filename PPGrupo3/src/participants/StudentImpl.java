@@ -16,8 +16,8 @@ public class StudentImpl extends ParticipantImpl implements Student {
 
     private int number;
     
-    public StudentImpl(String name, String email, InstituitionImpl instituition, Contact contact, int number) {
-        super(name, email, instituition, contact);
+    public StudentImpl(String name, String email, InstituitionImpl institution, Contact contact, int number) {
+        super(name, email, institution, contact);
         this.number = number;
     }
 
