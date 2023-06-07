@@ -177,9 +177,9 @@ public class ProjectImpl implements Project {
         for (Participant participantIndex : this.participantList) {
             if (participantIndex instanceof ParticipantImpl) {
                 ParticipantImpl temporaryParticipant = (ParticipantImpl) participantIndex;
-            if (temporaryParticipant.equals(participant)) {
-                throw new ParticipantAlreadyInProject("The participant is already in the project");
-            }
+                if (temporaryParticipant.equals(participant)) {
+                    throw new ParticipantAlreadyInProject("The participant is already in the project");
+                }
             }
         }
         this.participantList[this.participantCounter++] = participant;
@@ -194,6 +194,7 @@ public class ProjectImpl implements Project {
                 for (int j = i; j < this.participantCounter - 1; j++) {
                     this.participantList[j] = this.participantList[j + 1];
                 }
+                this.participantList[--this.participantCounter] = null;
                 break;
             }
         }
@@ -201,9 +202,9 @@ public class ProjectImpl implements Project {
     }
 
     @Override
-    public Participant getParticipant(String string) {
+    public Participant getParticipant(String email) {
         for (int i = 0; i < this.participantCounter; i++) {
-            if (this.participantList[i].getEmail().equals(string)) {
+            if (this.participantList[i].getEmail().equals(email)) {
                 return participantList[i];
             }
         }
@@ -221,7 +222,7 @@ public class ProjectImpl implements Project {
         this.tagList[this.tagCounter++] = tag;
     }
 
-    private void addTagsToObject(String[] string) {
+     private void addTagsToObject(String[] string) {
         this.tagList = new String[string.length];
         System.arraycopy(string, 0, tagList, 0, string.length);
         this.tagCounter = string.length;
@@ -248,7 +249,7 @@ public class ProjectImpl implements Project {
             throw new IllegalNumberOfTasks("The max number of tasks was achieved.");
         }
         if (getTask(task.getTitle()) != null) {
-            throw new TaskAlreadyInProject("The given task is already already ");
+            throw new TaskAlreadyInProject("The given task is already in the project.");
         }
 
         this.taskList[this.taskCounter++] = task;
@@ -271,7 +272,7 @@ public class ProjectImpl implements Project {
 
     @Override
     public boolean isCompleted() {
-        for (int i = 0; i < this.MAX_TASKS; i++) {
+        for (int i = 0; i < this.taskCounter; i++) {
             if (this.taskList[i] == null || this.taskList[i].getNumberOfSubmissions() == 0) {
                 return false;
             }
@@ -288,8 +289,8 @@ public class ProjectImpl implements Project {
             return false;
         }
         ProjectImpl temporaryProject = (ProjectImpl) obj;
-        return (temporaryProject.getName().equals(this.getName()) &&
-                temporaryProject.getDescription().equals(this.getDescription()));
+        return (temporaryProject.getName().equals(this.getName())
+                && temporaryProject.getDescription().equals(this.getDescription()));
     }
 
 }

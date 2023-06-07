@@ -75,19 +75,20 @@ public class EditionImpl implements Edition {
         this.projectList[this.projectCounter++] = new ProjectImpl(name, description, tags);
     }
 
-    private int findProject(String string) {
+    private int findProject(String name) {
         for (int i = 0; i < this.projectCounter; i++) {
             if (projectList[i] != null) {
-                if (this.projectList[i].getName().equals(string)) {
+                if (this.projectList[i].getName().equals(name)) {
                     return i;
                 }
             }
         }
         return -1;
     }
+    
     @Override
-    public void removeProject(String string) {
-        int position = findProject(string);
+    public void removeProject(String name) {
+        int position = findProject(name);
         if (position == -1) {
             throw new IllegalArgumentException("The given project name was not found ");
         }
@@ -97,8 +98,8 @@ public class EditionImpl implements Edition {
     }
 
     @Override
-    public Project getProject(String string) {
-        int position = findProject(string);
+    public Project getProject(String name) {
+        int position = findProject(name);
         if (position == -1) {
             throw new IllegalArgumentException("The given project name was not found.");
         }
@@ -112,13 +113,13 @@ public class EditionImpl implements Edition {
 
 
     @Override
-    public Project[] getProjectsByTag(String string) {
-        if (string == null || string.isEmpty()) {
+    public Project[] getProjectsByTag(String tag) {
+        if (tag == null || tag.isEmpty()) {
             throw new IllegalArgumentException("Tag cannot be null or empty.");
         }
         int count = 0;
         for (Project project : this.projectList) {
-            if (project.hasTag(string)) {
+            if (project.hasTag(tag)) {
                 count++;
             }
         }
@@ -126,7 +127,7 @@ public class EditionImpl implements Edition {
         Project[] projectsWithTag = new Project[count];
         int index = 0;
         for (Project project : this.projectList) {
-            if (project.hasTag(string)) {
+            if (project.hasTag(tag)) {
                 projectsWithTag[index++] = project;
             }
         }
@@ -135,14 +136,14 @@ public class EditionImpl implements Edition {
     }
 
     @Override
-    public Project[] getProjectsOf(String string) {
-        if (string == null || string.isEmpty()) {
+    public Project[] getProjectsOf(String email) {
+        if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty.");
         }
 
         int count = 0;
         for (Project project : this.projectList) {
-            Participant participant = project.getParticipant(string);
+            Participant participant = project.getParticipant(email);
             if (participant != null) {
                 count++;
             }
@@ -151,7 +152,7 @@ public class EditionImpl implements Edition {
         Project[] projectsOfParticipant = new Project[count];
         int index = 0;
         for (Project project : this.projectList) {
-            Participant participant = project.getParticipant(string);
+            Participant participant = project.getParticipant(email);
             if (participant != null) {
                 projectsOfParticipant[index++] = project;
             }
