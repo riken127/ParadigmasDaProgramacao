@@ -31,12 +31,12 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public Edition returnEditionsWithProjectWithMissingSubmissionsInTasks() {
+    public Edition[] returnEditionsWithProjectWithMissingSubmissionsInTasks() {
         return null;
     }
 
     @Override
-    public Project returnProjectsWithMissingSubmissions() {
+    public Project[] returnProjectsWithMissingSubmissions() {
         return null;
     }
 
