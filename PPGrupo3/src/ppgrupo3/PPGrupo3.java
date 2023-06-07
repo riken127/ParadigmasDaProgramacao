@@ -47,22 +47,31 @@ public class PPGrupo3 {
         TaskImpl task = new TaskImpl(LocalDate.now(), LocalDate.of(2022, Month.OCTOBER, 10), "Carro", "Fazer um carro");
         ProjectImpl projeto = new ProjectImpl("Primeiro projeto", "Um projeto pa desemvolver", 4, 8, 2, 5, 3);
 
+        //task.addSubmission(submicao);
+        
         try {
             projeto.addParticipant(estudante);
             projeto.addParticipant(facilitador);
             projeto.addParticipant(parceiro);
             projeto.addParticipant(estudante2);
-            projeto.addParticipant(estudante3);
+            //projeto.addParticipant(estudante3);
+
+            projeto.addTask(task);
+                        projeto.addTask(task);
 
         } catch (Exception ex) {
             System.out.println(ex);
         }
 
-        System.out.println(projeto.getNumberOfParticipants());
-        System.out.println(projeto.getNumberOfFacilitators());
-        System.out.println(projeto.getNumberOfPartners());
-        System.out.println(projeto.getNumberOfStudents());
-        System.out.println(projeto.getNumberOfTasks());
+        projeto.removeParticipant("joaoA2@gmail.com");
+
+        System.out.println(projeto.isCompleted());
+        
+        System.out.println("Participantes - " +projeto.getNumberOfParticipants());
+        System.out.println("Facilitadores - " +projeto.getNumberOfFacilitators());
+        System.out.println("Parceiros - " +projeto.getNumberOfPartners());
+        System.out.println("Alunos - " +projeto.getNumberOfStudents());
+        System.out.println("Tags - " + projeto.getNumberOfTasks());
 
     }
 
