@@ -23,6 +23,7 @@ public class CblManagement implements CblManagementInterface{
         this.editionList = new Edition[INITIAL_EDITION_LIST_SIZE];
         this.editionCounter = 0;
     }
+
     private void expandEditionListArray() {
         Edition[] temporaryEditionList = new Edition[this.editionList.length];
         for (int i = 0; i < this.editionList.length; i++) {
@@ -61,7 +62,7 @@ public class CblManagement implements CblManagementInterface{
             throw new InvalidIndexException("The given index is already null.\n");
         }else {
             int i;
-            for (i = index; i < this.editionList.length; i++) {
+            for (i = index; i < this.editionList.length - 1; i++) {
                 this.editionList[i] = this.editionList[i + 1];
             }
             this.editionList[i] = null;
@@ -70,7 +71,10 @@ public class CblManagement implements CblManagementInterface{
 
     @Override
     public Edition returnEdition(int index) {
-        return this.editionList[index];
+        if (this.editionCounter - 1 <= index) {
+            return this.editionList[index];
+        }
+            return null;
     }
 
     @Override
@@ -263,7 +267,7 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public String listOne() {
+    public String listEditionInformation() {
         String s = "\t\tEditions Information";
         s += "\n\t\t----------------------------------";
         for (Edition edition : this.editionList) {
@@ -277,7 +281,7 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public String listTwo() {
+    public String listProjectInformationByEdition() {
         String s = "\t\t\tProjects Information By Edition";
         s += "\n\t\t----------------------------------";
         for (Edition edition : this.editionList) {
@@ -301,7 +305,7 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public String listThree() {
+    public String listProjectStatusByEdition() {
         String s = "\t\t\tProject Status Summary by Edition";
         s += "\n\t\t\t----------------------------------";
 

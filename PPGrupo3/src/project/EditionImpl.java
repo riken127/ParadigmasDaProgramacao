@@ -68,53 +68,6 @@ public class EditionImpl implements Edition {
     public void setStatus(Status status) {
         this.status = status;
     }
-/*
-    @Override
-    public void addProject(String name, String description, String[] tags) throws IOException, ParseException {
-        String fileName = projectTemplate;
-        if (name == null || name.equals("") || description == null || description.equals("") || tags == null) {
-            throw new IllegalArgumentException("A null item was found in the given template.");
-        }
-        for (String tag : tags) {
-            if (tag.equals("") || tag.equals(" ")) {
-                throw new IllegalArgumentException("A empty tag was found in the given template.");
-            }
-        }
-        try {
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(fileName));
-
-            int getNumberOfFacilitators = ((Long) jsonObject.get("number_of_facilitators")).intValue();
-            int numberOfStudents = ((Long) jsonObject.get("number_of_students")).intValue();
-            int numberOfPartners = ((Long) jsonObject.get("number_of_partners")).intValue();
-
-            JSONArray tasksArray = (JSONArray) jsonObject.get("tasks");
-            ProjectImpl project = new ProjectImpl(name, description, tags);
-
-                for (Object taskObj : tasksArray) {
-                    JSONObject taskJson = (JSONObject) taskObj;
-                    String title = (String) taskJson.get("title");
-                    String taskDescription = (String) taskJson.get("description");
-                    int startAtDayOfYear = ((Long) taskJson.get("start_at")).intValue();
-                    int duration = ((Long) taskJson.get("duration")).intValue();
-
-                    LocalDate startAt = LocalDate.ofYearDay(2023, startAtDayOfYear);
-                    LocalDate endAt = startAt.plusDays((long) duration);
-
-                    Task task = new TaskImpl(startAt, endAt, title, description);
-                    project.addTask(task);
-                }
-            this.projectList[this.projectCounter++] = project;
-        } catch (IOException exception) {
-            throw new IOException("Error while reading the json file.");
-        } catch (org.json.simple.parser.ParseException e) {
-            throw new java.text.ParseException("Error while parsing.", 0);
-        } catch ( TaskAlreadyInProject | IllegalNumberOfTasks e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-*/
 @Override
 public void addProject(String name, String description, String[] tags) throws IOException, ParseException {
     String fileName = projectTemplate;
