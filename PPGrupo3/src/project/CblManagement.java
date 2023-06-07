@@ -36,7 +36,7 @@ public class CblManagement implements CblManagementInterface{
     
     @Override
     public void addEdition(Edition newCblEdition) throws EditionAlreadyInListException {
-        for (int i = 0; i < this.editionList.length; i++ ) {
+        for (int i = 0; i < this.editionCounter; i++ ) {
             if (this.editionList[i].equals(newCblEdition)) {
                 throw new EditionAlreadyInListException("The given CBL edition is already present.\n");
             }
@@ -212,7 +212,7 @@ public class CblManagement implements CblManagementInterface{
             s += "\t\tNo projects available.\n";
         }else {
             s += "\n\t\tNumber of projects:\t" + this.editionList[index].getProjects().length;
-            s += "\n\t\tRatio of completed projects:\t" + (double) (getNumberOfCompletedProjects(index) / this.editionList[index].getProjects().length) * 100 + ".\n";
+            s += "\n\t\tRatio of completed projects:\t" + (double) (this.getNumberOfCompletedProjects(index) / this.editionList[index].getProjects().length) * 100 + "%\n";
         }
 
         return s;
@@ -221,9 +221,11 @@ public class CblManagement implements CblManagementInterface{
         Project[] projects = this.editionList[index].getProjects();
         int i = 0;
 
-        for (Project project : projects) {
-            if (project.isCompleted()) {
-                i++;
+        for (int j = 0; j <projects.length; j++) {
+            if (projects[j] != null) {
+                if (projects[j].isCompleted()) {
+                    i++;
+                }
             }
         }
         return i;

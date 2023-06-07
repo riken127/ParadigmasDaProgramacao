@@ -140,7 +140,7 @@ public void addProject(String name, String description, String[] tags) throws IO
             int startAtDayOfYear = ((Long) taskJson.get("start_at")).intValue();
             int duration = ((Long) taskJson.get("duration")).intValue();
 
-            LocalDate startAt = LocalDate.ofYearDay(2023, startAtDayOfYear);
+            LocalDate startAt = LocalDate.ofYearDay(2023, startAtDayOfYear + 1);
             LocalDate endAt = startAt.plusDays(duration);
 
             Task task = new TaskImpl(startAt, endAt, title, taskDescription);

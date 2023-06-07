@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+import exceptions.EditionAlreadyInListException;
+import exceptions.InvalidIndexException;
 import ma02_resources.participants.InstituitionType;
 import ma02_resources.project.Status;
 import ma02_resources.project.exceptions.IllegalNumberOfParticipantType;
@@ -26,10 +28,7 @@ import participants.ParticipantImpl;
 import participants.FacilitatorImpl;
 import participants.PartnerImpl;
 import participants.StudentImpl;
-import project.EditionImpl;
-import project.ProjectImpl;
-import project.SubmissionImpl;
-import project.TaskImpl;
+import project.*;
 
 public class PPGrupo3 {
 
@@ -58,7 +57,15 @@ public class PPGrupo3 {
             throw new RuntimeException(e);
         }
         //task.addSubmission(submicao);
-        
+        CblManagement cbl = new CblManagement();
+        try {
+            cbl.addEdition(edition);
+            System.out.println(cbl.returnEditionProgress(0));
+        } catch (EditionAlreadyInListException | InvalidIndexException e) {
+            throw new RuntimeException(e);
+        }
+
+
         try {
             projeto.addParticipant(estudante);
             projeto.addParticipant(facilitador);
