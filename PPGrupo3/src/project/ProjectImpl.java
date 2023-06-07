@@ -280,10 +280,10 @@ public class ProjectImpl implements Project {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof ProjectImpl temporaryProject)) {
+        if (!(obj instanceof Project)) {
             return false;
         }
-
+        ProjectImpl temporaryProject = (ProjectImpl) obj;
         return (temporaryProject.getName().equals(this.getName()) &&
                 temporaryProject.getDescription().equals(this.getDescription()));
     }
