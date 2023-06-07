@@ -11,6 +11,7 @@ import ma02_resources.project.Submission;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Arrays;
 
 public class CblManagement implements CblManagementInterface{
     private static final int INITIAL_EDITION_LIST_SIZE = 10;
@@ -261,16 +262,65 @@ public class CblManagement implements CblManagementInterface{
 
     @Override
     public String listOne() {
-        return null;
+        String s = "\t\tEditions Information";
+        s += "\n\t\t----------------------------------";
+        for (Edition edition : this.editionList) {
+            s += "\n\t\tEdition Name: " + edition.getName();
+            s += "\n\t\tStart Date:" + edition.getStart();
+            s += "\n\t\tProject Template: " + edition.getProjectTemplate();
+            s += "\n\t\tStatus: " + edition.getStatus();
+            s += "\n\t\t----------------------------------";
+        }
+        return s;
     }
 
     @Override
     public String listTwo() {
-        return null;
+        String s = "\t\t\tProjects Information By Edition";
+        s += "\n\t\t----------------------------------";
+        for (Edition edition : this.editionList) {
+            s += "\n\t\tEdition Name: \t"+ edition.getName();
+            s += "\n\t\t----------------------------------";
+
+            Project[] projects = edition.getProjects();
+
+            for (Project project: projects) {
+                s += "\n\t\t\tProject Name:\t" + project.getName();
+                s += "\n\t\t\tDescription:\t" + project.getDescription();
+                                        /*
+                                            Não se pode usar java.utils, tenho de criar
+                                            um toString para o tags.
+                                         */
+                s += "\n\t\t\tTags " + Arrays.toString(project.getTags());
+                s += "\n\t\t\t----------------------------------";
+            }
+        }
+        return s;
     }
 
     @Override
     public String listThree() {
-        return null;
+        String s = "\t\t\tProject Status Summary by Edition";
+        s += "\n\t\t\t----------------------------------";
+
+        for (Edition edition: this.editionList) {
+            s += "\n\t\t\tEdition Name:\t" + edition.getName();
+            s += "\n\t\t\t----------------------------------";
+
+            Project[] projects = edition.getProjects();
+            int completed, uncompleted;
+            completed = uncompleted = 0;
+            for (Project project : projects) {
+                boolean state = project.isCompleted();
+                if (state) {
+                    completed++;
+                }else {
+                    uncompleted++;
+                }
+            }
+            s += "\n\t\t\t" + completed + "/" + uncompleted + ". (" +
+                    (double) ((completed+uncompleted) / completed)*100 + ")";
+        }
+        return s;
     }
 }
