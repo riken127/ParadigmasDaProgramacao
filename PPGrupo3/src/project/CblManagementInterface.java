@@ -13,11 +13,11 @@ public interface CblManagementInterface {
     /**
      * Retorna edições que possuem projetos com submissões em falta em tarefas.
      */
-    Edition returnEditionsWithProjectWithMissingSubmissionsInTasks();
+    Edition[] returnEditionsWithProjectWithMissingSubmissionsInTasks();
     /**
      * Projetos com submissões em falta de um edição e da edição ativa
      */
-    Project returnProjectsWithMissingSubmissions();
+    Project[] returnProjectsWithMissingSubmissions();
     int returnNumberOfProjectFromEdition(int index);
     int returnNumberOfEditions();
     String returnProgressOnProject(int index, String string);

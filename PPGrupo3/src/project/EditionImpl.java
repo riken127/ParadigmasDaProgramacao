@@ -17,7 +17,6 @@ import ma02_resources.participants.Participant;
 import ma02_resources.project.Edition;
 import ma02_resources.project.Project;
 import ma02_resources.project.Status;
-import participants.ParticipantImpl;
 
 public class EditionImpl implements Edition {
 
@@ -64,7 +63,6 @@ public class EditionImpl implements Edition {
 
     @Override
     public void addProject(String name, String description, String[] tags) throws IOException, ParseException {
-        // Não entendo necessidade e ou / como implementar o IOExeption/ParseException
         if (name == null || name.equals("") || description == null || description.equals("") || tags == null) {
             throw new IllegalArgumentException("A null item was found in the given template.");
         }
