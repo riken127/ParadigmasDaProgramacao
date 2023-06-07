@@ -9,12 +9,15 @@
  */
 package ppgrupo3;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
 import ma02_resources.participants.InstituitionType;
+import ma02_resources.project.Status;
 import ma02_resources.project.exceptions.IllegalNumberOfParticipantType;
 import ma02_resources.project.exceptions.ParticipantAlreadyInProject;
 import participants.ContactImpl;
@@ -23,6 +26,7 @@ import participants.ParticipantImpl;
 import participants.FacilitatorImpl;
 import participants.PartnerImpl;
 import participants.StudentImpl;
+import project.EditionImpl;
 import project.ProjectImpl;
 import project.SubmissionImpl;
 import project.TaskImpl;
@@ -46,7 +50,13 @@ public class PPGrupo3 {
         SubmissionImpl submicao = new SubmissionImpl(LocalDateTime.now(), estudante, "Primeira Submição");
         TaskImpl task = new TaskImpl(LocalDate.now(), LocalDate.of(2022, Month.OCTOBER, 10), "Carro", "Fazer um carro");
         ProjectImpl projeto = new ProjectImpl("Primeiro projeto", "Um projeto pa desemvolver", 4, 8, 2, 5, 3);
-
+        EditionImpl edition = new EditionImpl("Edição 2023", LocalDate.now(), LocalDate.now().plusDays(200), "project_template.json", Status.ACTIVE);
+        String[] tags = {"manager", "cbl", "software"};
+        try {
+            edition.addProject("CBL manager", "Software de gestão de cbl", tags);
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
         //task.addSubmission(submicao);
         
         try {
