@@ -205,4 +205,25 @@ public void addProject(String name, String description, String[] tags) throws IO
         return this.end;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+
+        if (!(object instanceof Edition)) {
+            return false;
+        }
+        Edition temporaryEdition = (Edition) object;
+
+        if (this == temporaryEdition) {
+            return true;
+        }
+
+        return  (temporaryEdition.getName().equals(this.getName()) &&
+            temporaryEdition.getProjectTemplate().equals(this.getProjectTemplate()) &&
+            temporaryEdition.getStatus() == this.getStatus() &&
+            temporaryEdition.getEnd().equals(this.getEnd()) &&
+            temporaryEdition.getStart().equals(this.getStart()));
+    }
 }
