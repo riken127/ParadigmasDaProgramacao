@@ -9,15 +9,21 @@
 */
 package project;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.time.LocalDate;
-
 import ma02_resources.participants.Participant;
 import ma02_resources.project.Edition;
 import ma02_resources.project.Project;
 import ma02_resources.project.Status;
+import ma02_resources.project.Task;
+import ma02_resources.project.exceptions.IllegalNumberOfTasks;
+import ma02_resources.project.exceptions.TaskAlreadyInProject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDate;
 public class EditionImpl implements Edition {
 
     private String name;
@@ -63,6 +69,7 @@ public class EditionImpl implements Edition {
 
     @Override
     public void addProject(String name, String description, String[] tags) throws IOException, ParseException {
+        String fileName = name + ".json";
         if (name == null || name.equals("") || description == null || description.equals("") || tags == null) {
             throw new IllegalArgumentException("A null item was found in the given template.");
         }
@@ -71,9 +78,42 @@ public class EditionImpl implements Edition {
                 throw new IllegalArgumentException("A empty tag was found in the given template.");
             }
         }
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(fileName));
 
-        this.projectList[this.projectCounter++] = new ProjectImpl(name, description, tags);
+            int getNumberOfFacilitators = ((Long) jsonObject.get("number_of_facilitors")).intValue();
+            int numberOfStudents = ((Long) jsonObject.get("number_of_students")).intValue();
+            int numberOfPartners = ((Long) jsonObject.get("number_of_partners")).intValue();
+
+            JSONArray tasksArray = (JSONArray) jsonObject.get("tasks");
+            ProjectImpl project = new ProjectImpl(name, description, tags);
+
+                for (Object taskObj : tasksArray) {
+                    JSONObject taskJson = (JSONObject) taskObj;
+                    String title = (String) taskJson.get("title");
+                    String taskDescription = (String) taskJson.get("descrpition");
+                    int startAtDayOfYear = ((Long) taskJson.get("start_at")).intValue();
+                    int duration = ((Long) taskJson.get("duration")).intValue();
+
+                    LocalDate startAt = LocalDate.ofYearDay(2023, startAtDayOfYear);
+                    LocalDate endAt = startAt.plusDays((long) duration);
+
+                    Task task = new TaskImpl(startAt, endAt, title, description);
+                    project.addTask(task);
+                }
+
+        } catch (IOException exception) {
+            throw new IOException("Error while reading the json file.");
+        } catch (org.json.simple.parser.ParseException e) {
+            throw new java.text.ParseException("Error while parsing.", 0);
+        } catch ( TaskAlreadyInProject | IllegalNumberOfTasks e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
+
 
     private int findProject(String name) {
         for (int i = 0; i < this.projectCounter; i++) {
