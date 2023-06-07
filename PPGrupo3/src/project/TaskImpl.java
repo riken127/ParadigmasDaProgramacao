@@ -6,7 +6,7 @@
 * Nome: <José Henrique Noronha Oliveira e Silva>
 * Número: <8220343>
 * Turma: <LEI1T4>
-*/
+ */
 package project;
 
 import java.time.Duration;
@@ -90,7 +90,7 @@ public class TaskImpl implements Task {
 
     @Override
     public void extendDeadline(int i) {
-        end.plusDays(i);
+        this.end = this.end.plusDays((long) i);
     }
 
     @Override
@@ -100,16 +100,16 @@ public class TaskImpl implements Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)  {
+        if (obj == null) {
             return false;
         }
         if (!(obj instanceof Task)) {
             return false;
         }
         TaskImpl temporaryTask = (TaskImpl) obj;
-        return (temporaryTask.getTitle().equals(this.getTitle()) &&
-            temporaryTask.getDescription().equals(this.getDescription()) &&
-            temporaryTask.getStart().equals(this.getStart()) &&
-            temporaryTask.getEnd().equals(this.getEnd()));
+        return (temporaryTask.getTitle().equals(this.getTitle())
+                && temporaryTask.getDescription().equals(this.getDescription())
+                && temporaryTask.getStart().equals(this.getStart())
+                && temporaryTask.getEnd().equals(this.getEnd()));
     }
 }

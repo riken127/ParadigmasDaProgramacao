@@ -17,6 +17,7 @@ import ma02_resources.project.exceptions.IllegalNumberOfTasks;
 import ma02_resources.project.exceptions.ParticipantAlreadyInProject;
 import ma02_resources.project.exceptions.TaskAlreadyInProject;
 import participants.FacilitatorImpl;
+import participants.ParticipantImpl;
 import participants.PartnerImpl;
 import participants.StudentImpl;
 
@@ -173,9 +174,12 @@ public class ProjectImpl implements Project {
                 throw new IllegalNumberOfParticipantType("The max number of facilitators was achieved");
             }
         }
-        for (Participant participants : this.participantList) {
-            if (participants.equals(participant)) {
+        for (Participant participantIndex : this.participantList) {
+            if (participantIndex instanceof ParticipantImpl) {
+                ParticipantImpl temporaryParticipant = (ParticipantImpl) participantIndex;
+            if (temporaryParticipant.equals(participant)) {
                 throw new ParticipantAlreadyInProject("The participant is already in the project");
+            }
             }
         }
         this.participantList[this.participantCounter++] = participant;
