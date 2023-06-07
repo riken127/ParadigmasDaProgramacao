@@ -26,12 +26,12 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public void defineActiveEdition(int index) {
+    public void setActiveEdition(int index) {
 
     }
 
     @Override
-    public Edition[] returnEditionsWithProjectWithMissingSubmissionsInTasks() {
+    public Edition[] returnEditionsWithProjectsMissingSubmissionsInTasks() {
         return null;
     }
 
@@ -41,7 +41,7 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public int returnNumberOfProjectFromEdition(int index) {
+    public int returnNumberOfProjects(int index) {
         return 0;
     }
 
@@ -51,12 +51,12 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public String returnProgressOnProject(int index, String string) {
+    public String returnProjectProgress(int index, String string) {
         return null;
     }
 
     @Override
-    public String returnProgressOnEdition(int index) {
+    public String returnEditionProgress(int index) {
         return null;
     }
 

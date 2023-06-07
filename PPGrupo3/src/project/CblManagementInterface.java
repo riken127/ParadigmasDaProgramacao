@@ -8,21 +8,21 @@ public interface CblManagementInterface {
     void removeEdition(int index);
     Edition returnEdition(int index);
     void addProjectToEdition(int index);
-    void defineActiveEdition(int index);
+    void setActiveEdition(int index);
 
     /**
      * Retorna edições que possuem projetos com submissões em falta em tarefas.
      */
-    Edition[] returnEditionsWithProjectWithMissingSubmissionsInTasks();
+    Edition[] returnEditionsWithProjectsMissingSubmissionsInTasks();
     /**
      * Projetos com submissões em falta de um edição e da edição ativa
      */
     Project[] returnProjectsWithMissingSubmissions();
-    int returnNumberOfProjectFromEdition(int index);
+    int returnNumberOfProjects(int index);
     int returnNumberOfEditions();
-    String returnProgressOnProject(int index, String string);
-    String returnProgressOnEdition(int index);
-    void addProjectSubmissionToActiveEdition(Submission sbmsn);
+    String returnProjectProgress(int index, String string);
+    String returnEditionProgress(int index);
+    void addProjectSubmissionToActiveEdition(Submission submission);
 
     /**
      *  Listagens.
