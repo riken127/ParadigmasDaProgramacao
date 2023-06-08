@@ -203,19 +203,21 @@ public void addProject(String name, String description, String[] tags) throws IO
         }
 
         int count = 0;
-        for (Project project : this.projectList) {
-            Participant participant = project.getParticipant(email);
-            if (participant != null) {
-                count++;
+        for (int i = 0; i < this.projectCounter; i++) {
+            if (this.projectList[i] != null) {
+                if (this.projectList[i].getParticipant(email) != null) {
+                    count++;
+                }
             }
         }
 
         Project[] projectsOfParticipant = new Project[count];
         int index = 0;
-        for (Project project : this.projectList) {
-            Participant participant = project.getParticipant(email);
-            if (participant != null) {
-                projectsOfParticipant[index++] = project;
+        for (int i = 0; i < this.projectCounter; i++) {
+            if (this.projectList[i] != null) {
+                if (this.projectList[i].getParticipant(email) != null) {
+                    projectsOfParticipant[index++] = this.projectList[i];
+                }
             }
         }
 
