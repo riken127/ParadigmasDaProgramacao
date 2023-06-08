@@ -149,10 +149,11 @@ public void addProject(String name, String description, String[] tags) throws IO
         for (int i = position; i < this.projectCounter; i++) {
             this.projectList[i] = this.projectList[i + 1];
         }
+        this.projectCounter--;
     }
 
     @Override
-    public Project getProject(String name) {
+    public Project getProject(String name) throws IllegalArgumentException{
         int position = findProject(name);
         if (position == -1) {
             throw new IllegalArgumentException("The given project name was not found.");

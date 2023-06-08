@@ -66,12 +66,13 @@ public class CblManagement implements CblManagementInterface{
                 this.editionList[i] = this.editionList[i + 1];
             }
             this.editionList[i] = null;
+            this.editionCounter--;
         }
     }
 
     @Override
     public Edition returnEdition(int index) {
-        if (this.editionCounter - 1 <= index) {
+        if (index <= this.editionCounter - 1) {
             return this.editionList[index];
         }
             return null;
@@ -111,30 +112,30 @@ public class CblManagement implements CblManagementInterface{
     public Edition[] returnEditionsWithProjectsMissingSubmissionsInTasks() {
         int counter = 0;
         Edition[] missingSubmissionsArray;
-        for (Edition editionArray : this.editionList) {
-                Project[] temporaryProjectArray = editionArray.getProjects();
-                int projectsWithMissingSubmissions = 0;
-                for (Project project : temporaryProjectArray) {
-                    if (!project.isCompleted()) {
-                        projectsWithMissingSubmissions++;
-                    }
-                }
-                if (projectsWithMissingSubmissions > 0) {
-                    counter++;
-                }
-        }
-        missingSubmissionsArray = new Edition[counter];
-        counter = 0;
-        for (Edition editionArray : this.editionList) {
-            Project[] temporaryProjectArray = editionArray.getProjects();
+        for (int i = 0; i < this.editionCounter; i++) {
+            Project[] temporaryProjectArray = this.editionList[i].getProjects();
             int projectsWithMissingSubmissions = 0;
-            for (Project project : temporaryProjectArray) {
-                if (!project.isCompleted()) {
+            for (int j = 0; j < this.editionList[i].getNumberOfProjects(); j++) {
+                if (!temporaryProjectArray[j].isCompleted()) {
                     projectsWithMissingSubmissions++;
                 }
             }
             if (projectsWithMissingSubmissions > 0) {
-                missingSubmissionsArray[counter++] = editionArray;
+                counter++;
+            }
+        }
+        missingSubmissionsArray = new Edition[counter];
+        counter = 0;
+        for (int i = 0; i < this.editionCounter; i++) {
+            Project[] temporaryProjectArray = this.editionList[i].getProjects();
+            int projectsWithMissingSubmissions = 0;
+            for (int j = 0; j < this.editionList[i].getNumberOfProjects(); j++) {
+                if (!temporaryProjectArray[j].isCompleted()) {
+                    projectsWithMissingSubmissions++;
+                }
+            }
+            if (projectsWithMissingSubmissions > 0) {
+                missingSubmissionsArray[counter++] = this.editionList[i];
             }
         }
         return missingSubmissionsArray;
@@ -149,7 +150,7 @@ public class CblManagement implements CblManagementInterface{
         int counter = 0;
         Project[] projectsWithMissingSubmissions;
 
-        for (int i = 0; i < projectArray.length; i++) {
+        for (int i = 0; i < this.editionList[index].getNumberOfProjects(); i++) {
             if (!projectArray[i].isCompleted()) {
                 counter++;
             }
@@ -160,7 +161,7 @@ public class CblManagement implements CblManagementInterface{
         projectsWithMissingSubmissions = new Project[counter];
         counter = 0;
 
-        for (int i = 0; i < projectArray.length; i++) {
+        for (int i = 0; i < this.editionList[index].getNumberOfProjects(); i++) {
             if (!projectArray[i].isCompleted()) {
                 projectsWithMissingSubmissions[counter++] = projectArray[i];
             }
@@ -173,7 +174,7 @@ public class CblManagement implements CblManagementInterface{
         if (this.editionList[index] == null) {
             throw new InvalidIndexException("The given index is null.\n");
         }
-        return (this.editionList[index].getProjects().length);
+        return (this.editionList[index].getNumberOfProjects());
 
     }
 
@@ -183,13 +184,13 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public String returnProjectProgress(int index, String string) throws InvalidIndexException {
+    public String returnProjectProgress(int index, String projectName) throws InvalidIndexException {
         String s  = "\t\tProject progress\n";
         if (this.editionList[index] == null) {
             throw new InvalidIndexException("The given index is null.\n");
         }
 
-        Project project = this.editionList[index].getProject(string);
+        Project project = this.editionList[index].getProject(projectName);
         if (project == null) {
             throw new InvalidIndexException("The given project name is invalid.\n");
         }
@@ -202,7 +203,7 @@ public class CblManagement implements CblManagementInterface{
     }
 
     @Override
-    public String returnEditionProgress(int index) throws InvalidIndexException{
+    public String returnEditionProgress(int index) throws InvalidIndexException {
         String s = "\t\tEdition progress\n";
         if (this.editionList[index] == null) {
             throw new InvalidIndexException("The given index is null.\n");
@@ -212,7 +213,7 @@ public class CblManagement implements CblManagementInterface{
         s += "\n\t\tStarts at/ Started at:\t" + this.editionList[index].getStart();
         s += "\n\t\tEnds at/ Ended at:\t" + this.editionList[index].getEnd();
         s += "\n\t\tCurrent edition status:\t" + this.editionList[index].getStatus();
-        if (projects == null) {
+        if (this.editionList[index].getNumberOfProjects() == 0) {
             s += "\t\tNo projects available.\n";
         }else {
             s += "\n\t\tNumber of projects:\t" + this.editionList[index].getNumberOfProjects();
@@ -270,11 +271,11 @@ public class CblManagement implements CblManagementInterface{
     public String listEditionInformation() {
         String s = "\t\tEditions Information";
         s += "\n\t\t----------------------------------";
-        for (Edition edition : this.editionList) {
-            s += "\n\t\tEdition Name: " + edition.getName();
-            s += "\n\t\tStart Date:" + edition.getStart();
-            s += "\n\t\tProject Template: " + edition.getProjectTemplate();
-            s += "\n\t\tStatus: " + edition.getStatus();
+        for (int i = 0; i < this.editionCounter; i++) {
+            s += "\n\t\tEdition Name: " + this.editionList[i].getName();
+            s += "\n\t\tStart Date:" + this.editionList[i].getStart();
+            s += "\n\t\tProject Template: " + this.editionList[i].getProjectTemplate();
+            s += "\n\t\tStatus: " + this.editionList[i].getStatus();
             s += "\n\t\t----------------------------------";
         }
         return s;
@@ -283,8 +284,8 @@ public class CblManagement implements CblManagementInterface{
     @Override
     public String listProjectInformationByEdition() {
         String s = "\t\t\tProjects Information By Edition";
-        s += "\n\t\t----------------------------------";
-        for (Edition edition : this.editionList) {
+        s += "\n\t\t\t----------------------------------";
+        /*for (Edition edition : this.editionList) {
             s += "\n\t\tEdition Name: \t"+ edition.getName();
             s += "\n\t\t----------------------------------";
 
@@ -301,6 +302,24 @@ public class CblManagement implements CblManagementInterface{
                 s += "\n";
                 s += "\n\t\t\t----------------------------------";
             }
+        }*/
+        for (int i = 0; i < this.editionCounter; i++) {
+            s += "\n\t\t\tEdition Name: \t"+ this.editionList[i].getName();
+            s += "\n\t\t\t----------------------------------";
+
+            Project[] projects = this.editionList[i].getProjects();
+
+            for (int j = 0; j < this.editionList[i].getNumberOfProjects(); j++) {
+                s += "\n\t\t\tProject Name:\t" + projects[j].getName();
+                s += "\n\t\t\tDescription:\t" + projects[j].getDescription();
+
+                s += "\n\t\t\tTags\t";
+                for (String tag : projects[j].getTags()) {
+                    s += "{" + tag + "} ";
+                }
+                s += "\n";
+                s += "\n\t\t\t----------------------------------";
+            }
         }
         return s;
     }
@@ -310,23 +329,30 @@ public class CblManagement implements CblManagementInterface{
         String s = "\t\t\tProject Status Summary by Edition";
         s += "\n\t\t\t----------------------------------";
 
-        for (Edition edition: this.editionList) {
-            s += "\n\t\t\tEdition Name:\t" + edition.getName();
+        for (int i = 0; i < this.editionCounter; i++) {
+            s += "\n\t\t\tEdition Name:\t" + this.editionList[i].getName();
             s += "\n\t\t\t----------------------------------";
 
-            Project[] projects = edition.getProjects();
+            Project[] projects = this.editionList[i].getProjects();
             int completed, uncompleted;
             completed = uncompleted = 0;
-            for (Project project : projects) {
-                boolean state = project.isCompleted();
+            for (int j = 0; j < this.editionList[i].getNumberOfProjects(); j++) {
+                boolean state = projects[j].isCompleted();
                 if (state) {
                     completed++;
                 }else {
                     uncompleted++;
                 }
             }
-            s += "\n\t\t\t" + completed + "/" + uncompleted + ". (" +
-                    (double) ((completed+uncompleted) / completed)*100 + ")";
+            if (completed + uncompleted > 0 ) {
+                s += "\n\t\t\t" + completed + "/" + uncompleted + ". (" +
+                        (double) ( completed / (completed + uncompleted)) * 100 + ")";
+            }
+            else {
+                s += "\n\t\t\tNo projects where found.";
+            }
+            s += "\n\t\t\t----------------------------------";
+
         }
         return s;
     }
