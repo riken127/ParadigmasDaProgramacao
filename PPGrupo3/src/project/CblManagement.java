@@ -215,8 +215,8 @@ public class CblManagement implements CblManagementInterface{
         if (projects == null) {
             s += "\t\tNo projects available.\n";
         }else {
-            s += "\n\t\tNumber of projects:\t" + this.editionList[index].getProjects().length;
-            s += "\n\t\tRatio of completed projects:\t" + (double) (this.getNumberOfCompletedProjects(index) / this.editionList[index].getProjects().length) * 100 + "%\n";
+            s += "\n\t\tNumber of projects:\t" + this.editionList[index].getNumberOfProjects();
+            s += "\n\t\tRatio of completed projects:\t" + (double) (this.getNumberOfCompletedProjects(index) / this.editionList[index].getNumberOfProjects()) * 100 + "%\n";
         }
 
         return s;
