@@ -174,11 +174,12 @@ public class ProjectImpl implements Project {
                 throw new IllegalNumberOfParticipantType("The max number of facilitators was achieved");
             }
         }
-        for (Participant participantIndex : this.participantList) {
-            if (participantIndex instanceof ParticipantImpl) {
-                ParticipantImpl temporaryParticipant = (ParticipantImpl) participantIndex;
+        for (int i = 0; i < this.participantCounter; i++) {
+            if (this.participantList[i] != null) {
+                ParticipantImpl temporaryParticipant = (ParticipantImpl) this.participantList[i];
+
                 if (temporaryParticipant.equals(participant)) {
-                    throw new ParticipantAlreadyInProject("The participant is already in the project");
+                    throw new ParticipantAlreadyInProject("The participant is already in the project.");
                 }
             }
         }
@@ -224,7 +225,9 @@ public class ProjectImpl implements Project {
 
      private void addTagsToObject(String[] string) {
         this.tagList = new String[string.length];
-        System.arraycopy(string, 0, tagList, 0, string.length);
+        for (int i = 0; i < string.length; i++) {
+            this.tagList[i] = string[i];
+        }
         this.tagCounter = string.length;
     }
 

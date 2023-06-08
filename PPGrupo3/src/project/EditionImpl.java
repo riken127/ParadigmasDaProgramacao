@@ -112,7 +112,7 @@ public void addProject(String name, String description, String[] tags) throws IO
     private int findProject(String name) {
         for (int i = 0; i < this.projectCounter; i++) {
             if (projectList[i] != null) {
-                if (this.projectList[i].getName().equals(name)) {
+                if (projectList[i].getName().equals(name)) {
                     return i;
                 }
             }

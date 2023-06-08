@@ -293,11 +293,12 @@ public class CblManagement implements CblManagementInterface{
             for (Project project: projects) {
                 s += "\n\t\t\tProject Name:\t" + project.getName();
                 s += "\n\t\t\tDescription:\t" + project.getDescription();
-                                        /*
-                                            Não se pode usar java.utils, tenho de criar
-                                            um toString para o tags.
-                                         */
-                s += "\n\t\t\tTags " + Arrays.toString(project.getTags());
+
+                s += "\n\t\t\tTags\t";
+                for (String tag : project.getTags()) {
+                    s += "{" + tag + "} ";
+                }
+                s += "\n";
                 s += "\n\t\t\t----------------------------------";
             }
         }
