@@ -68,7 +68,24 @@ public class EditionImpl implements Edition {
     public void setStatus(Status status) {
         this.status = status;
     }
-@Override
+private boolean isProjectInEdition(String name, String description, String[] tags) {
+        for (int i = 0; i < this.projectCounter; i++) {
+            if (this.projectList[i].getName().equals(name) && this.projectList[i].getDescription().equals(description)) {
+                int counter = 0;
+                String[] temporaryProjectTags = this.projectList[i].getTags();
+                for (int j = 0; j < tags.length && j < temporaryProjectTags.length; j++) {
+                    if (tags[j].equals(temporaryProjectTags[j])) {
+                        counter++;
+                    }
+                }
+                if (counter == temporaryProjectTags.length) {
+                    return true;
+                }
+            }
+        }
+        return false;
+}
+    @Override
 public void addProject(String name, String description, String[] tags) throws IOException, ParseException {
     String fileName = projectTemplate;
     if (name == null || name.isEmpty() || description == null || description.isEmpty() || tags == null) {
@@ -78,6 +95,9 @@ public void addProject(String name, String description, String[] tags) throws IO
         if (tag.isEmpty() || tag.trim().isEmpty()) {
             throw new IllegalArgumentException("An empty tag was found in the given template.");
         }
+    }
+    if (isProjectInEdition(name, description, tags)) {
+        throw new IllegalArgumentException("The given project is already present in the edition.");
     }
     try {
         JSONParser parser = new JSONParser();
