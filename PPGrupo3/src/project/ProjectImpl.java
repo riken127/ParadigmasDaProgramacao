@@ -65,7 +65,7 @@ public class ProjectImpl implements Project {
         this.MAX_TAGS = 10;
         this.name = name;
         this.description = description;
-        this.participantList = null;
+        this.participantList = new Participant[this.MAX_PARTICIPANTS];
         this.participantCounter = 0;
         this.taskList = new Task[this.MAX_TASKS];
         this.taskCounter = 0;
