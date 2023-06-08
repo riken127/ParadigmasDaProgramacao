@@ -171,21 +171,28 @@ public void addProject(String name, String description, String[] tags) throws IO
         if (tag == null || tag.isEmpty()) {
             throw new IllegalArgumentException("Tag cannot be null or empty.");
         }
-        int count = 0;
-        for (Project project : this.projectList) {
-            if (project.hasTag(tag)) {
-                count++;
+        int numberOfProjectsWithTag = 0;
+        
+        for (int i = 0; i < this.projectCounter; i++) {
+            if (this.projectList[i] != null) {
+                if (projectList[i].hasTag(tag)) {
+                    numberOfProjectsWithTag++;
+                }
             }
         }
 
-        Project[] projectsWithTag = new Project[count];
-        int index = 0;
-        for (Project project : this.projectList) {
-            if (project.hasTag(tag)) {
-                projectsWithTag[index++] = project;
+        Project[] projectsWithTag = new Project[numberOfProjectsWithTag];
+        
+        int counter = 0;
+        
+        for (int i = 0; i < this.projectCounter; i++) {
+            if (this.projectList[i] != null) {
+                if (projectList[i].hasTag(tag)) {
+                    projectsWithTag[counter++] = this.projectList[i];
+                }
             }
         }
-
+        
         return projectsWithTag;
     }
 
