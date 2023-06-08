@@ -146,7 +146,7 @@ public void addProject(String name, String description, String[] tags) throws IO
         if (position == -1) {
             throw new IllegalArgumentException("The given project name was not found ");
         }
-        for (int i = position; i < this.projectCounter - 1; i++) {
+        for (int i = position; i < this.projectCounter; i++) {
             this.projectList[i] = this.projectList[i + 1];
         }
     }
@@ -192,7 +192,7 @@ public void addProject(String name, String description, String[] tags) throws IO
                 }
             }
         }
-        
+
         return projectsWithTag;
     }
 
